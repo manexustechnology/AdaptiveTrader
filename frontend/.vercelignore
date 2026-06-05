@@ -1,0 +1,22 @@
+# Backend files (deploy ke VPS, bukan Vercel)
+api_server.py
+src/
+config/
+test_cmc_api.py
+examples/
+requirements.txt
+
+# Documentation files
+*.md
+!frontend/README.md
+
+# Local files
+.git
+.gitignore
+# Ignore parent directory files
+../*.py
+../*.md
+../src/
+../config/
+../examples/
+../requirements.txt

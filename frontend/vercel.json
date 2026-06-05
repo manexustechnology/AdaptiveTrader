@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "framework": "nextjs",
   "env": {
     "BACKEND_API": "http://195.26.240.233:8000"
   }
