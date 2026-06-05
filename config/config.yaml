@@ -1,0 +1,130 @@
+# Configuration for Adaptive Multi-Regime Trading Skill
+# BNB Hackathon Track 2
+
+# Portfolio Settings
+initial_capital: 10000  # Starting capital in USD
+max_position_size: 0.50  # Maximum 50% of capital in single position
+
+# Risk Management
+max_daily_loss: 0.05  # 5% daily loss limit
+max_drawdown: 0.20    # 20% maximum drawdown before stopping
+
+# Regime Detection Weights
+regime_weights:
+  technical: 0.40    # Weight for technical indicators
+  sentiment: 0.30    # Weight for sentiment analysis
+  volatility: 0.30   # Weight for volatility analysis
+
+# Risk Parameters by Regime
+risk_params:
+  bull:
+    max_position: 0.50  # 50% maximum position size
+    stop_loss: 0.03     # 3% stop loss
+    take_profit: 0.05   # 5% take profit target
+  
+  bear:
+    max_position: 0.30  # 30% maximum (conservative)
+    stop_loss: 0.02     # 2% stop loss (tighter)
+    take_profit: 0.03   # 3% take profit target
+  
+  sideways:
+    max_position: 0.25  # 25% maximum
+    stop_loss: 0.015    # 1.5% stop loss
+    take_profit: 0.025  # 2.5% take profit target
+  
+  volatile:
+    max_position: 0.15  # 15% maximum (very conservative)
+    stop_loss: 0.01     # 1% stop loss (very tight)
+    take_profit: 0.02   # 2% take profit target
+
+# Technical Indicator Settings
+technical_indicators:
+  rsi_period: 14
+  rsi_overbought: 70
+  rsi_oversold: 30
+  
+  macd_fast: 12
+  macd_slow: 26
+  macd_signal: 9
+  
+  ma_short: 20
+  ma_long: 50
+  
+  bollinger_period: 20
+  bollinger_std: 2
+
+# Signal Generation Thresholds
+signal_thresholds:
+  minimum_confidence: 0.50  # Minimum confidence to act
+  high_confidence: 0.75     # High confidence threshold
+  
+  # Bull market entry
+  bull_rsi_min: 50
+  bull_rsi_max: 70
+  bull_fear_greed_min: 55
+  
+  # Bear market entry
+  bear_rsi_min: 30
+  bear_rsi_max: 50
+  bear_fear_greed_max: 45
+  
+  # Sideways entry
+  sideways_rsi_oversold: 40
+  sideways_rsi_overbought: 60
+  sideways_bb_threshold: 0.02  # 2% from band
+  
+  # Volatile market
+  volatile_rsi_extreme_low: 30
+  volatile_rsi_extreme_high: 70
+  volatile_fear_greed_extreme_low: 25
+  volatile_fear_greed_extreme_high: 75
+
+# CoinMarketCap API Settings
+cmc_api:
+  # API credentials (set in environment variables or here)
+  api_key: "2d36e231e7fb4dadaf52fd00e26aee4b"  # ACTUAL API KEY - DO NOT COMMIT TO PUBLIC REPO
+  base_url: "https://pro-api.coinmarketcap.com"
+  
+  # Data refresh intervals (in seconds)
+  price_refresh: 60       # 1 minute
+  sentiment_refresh: 300  # 5 minutes
+  social_refresh: 600     # 10 minutes
+  
+  # Symbols to trade
+  symbols:
+    - BTC
+    - ETH
+    - BNB
+
+# Backtesting Settings
+backtest:
+  start_date: "2024-01-01"
+  end_date: "2025-12-31"
+  timeframe: "1h"  # 1-hour candles
+  
+  # Transaction costs
+  trading_fee: 0.001  # 0.1% per trade
+  slippage: 0.0005    # 0.05% slippage
+  
+  # Performance metrics to track
+  metrics:
+    - total_return
+    - sharpe_ratio
+    - max_drawdown
+    - win_rate
+    - profit_factor
+    - total_trades
+
+# Logging
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/trading_skill.log"
+
+# Feature Flags
+features:
+  use_social_data: true
+  use_on_chain_data: true
+  use_derivatives_data: true
+  adaptive_position_sizing: true
+  circuit_breakers: true
